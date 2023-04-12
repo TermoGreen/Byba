@@ -1,0 +1,20 @@
+---
+# tasks file for customer
+
+- name: all selinux reboot
+  hosts: all
+  become: true
+  roles:
+    - selinux
+
+- name: Install nginx package on web_servers
+  hosts: web_servers
+  become: true
+  roles:
+    - customer
+
+- name: Install nginx package on rrobin
+  hosts: rrobin
+  become: true
+  roles:
+    - balance

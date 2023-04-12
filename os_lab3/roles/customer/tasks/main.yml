@@ -1,0 +1,26 @@
+---
+# tasks file for customer
+- name: Install the latest version of Apache
+  ansible.builtin.yum:
+    name: 
+      - nginx
+      - libselinux-python
+    state: latest
+- name: Create config file from template
+  ansible.builtin.template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+  notify:
+      - restart nginx  
+  tags:
+      - nginx-configuration
+#          - name: Template a file to /etc/file.conf
+#- name: Template a file to /etc/file.conf
+#  ansible.builtin.template:
+#    src: /mytemplates/foo.j2
+#    dest: /etc/file.conf
+#    owner: bin
+#    group: wheel
+#    mode: '0644'
